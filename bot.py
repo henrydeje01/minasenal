@@ -1,4 +1,6 @@
 import os
+os.environ["PORT"] = "10000"
+
 import logging
 import random
 import asyncio
@@ -7,7 +9,7 @@ from aiogram import Bot, Dispatcher, types
 from aiogram.filters import CommandStart
 from aiogram.utils.keyboard import ReplyKeyboardMarkup, KeyboardButton
 
-os.environ["PORT"] = "10000"
+
 
 # Configuración del bot
 TOKEN = "7335845771:AAFQLQPtF83J_H4T608W0FcseIUrzub7FpI"
