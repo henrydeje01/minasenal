@@ -8,8 +8,19 @@ import numpy as np
 from aiogram import Bot, Dispatcher, types
 from aiogram.filters import CommandStart
 from aiogram.utils.keyboard import ReplyKeyboardMarkup, KeyboardButton
+from flask import Flask
+import threading
 
+# === Configurar Flask para mantener activo el Web Service de Render ===
+app = Flask(__name__)
 
+@app.route('/')
+def home():
+    return "🤖 Bot de señales Mine Cave está activo!"
+
+def run_flask():
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host='0.0.0.0', port=port)
 
 # Configuración del bot
 TOKEN = "7335845771:AAFQLQPtF83J_H4T608W0FcseIUrzub7FpI"
@@ -87,12 +98,11 @@ async def enviar_senales():
 
 # Función principal para iniciar el bot
 async def main():
-    # Inicia el polling para recibir actualizaciones
     await dp.start_polling(bot)
 
-# Punto de entrada de la aplicación
 if __name__ == "__main__":
-    asyncio.run(main())
+    threading.Thread(target=run_flask).start()  # Inicia el servidor Flask
+    asyncio.run(main())  # Inicia el bot
 
 
 
